@@ -1,25 +1,60 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Form from './components/Form'
+import Field from './components/Form/Field'
+
+const fields = [
+  {
+    name: 'email',
+    label: 'Email Address',
+    type: 'email',
+    required: true
+  },{
+    name: 'name',
+    label: 'Full Name',
+    required: true
+  },{
+    name: 'password',
+    label: 'Password',
+    type: 'password',
+    required: true
+  }
+]
+
 
 class App extends Component {
+
+  validate() {
+
+  } 
+
+  async login(data) {
+    console.log('data',data)
+    try {
+      const request = await fetch('https://outpost.lunarworks.io/data.json')
+      const response = await request.json()
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+    }
+    
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Form
+          onSubmit={ this.login }>
+          { fields.map( ({type,label,name,required}) =>
+            <Field 
+              key={'input_' + name}
+              type={type} 
+              label={label} 
+              name={name}
+              required={required}
+               />
+              
+          )}
+        </Form> 
       </div>
     );
   }
