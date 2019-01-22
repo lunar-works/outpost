@@ -10,6 +10,9 @@ class Upsert extends PureComponent {
 
   constructor(props) {
     super(props)
+
+    this.onSubmit = this.onSubmit.bind(this)
+    this.renderForm = this.renderForm.bind(this)
   }
 
   state = {
@@ -20,8 +23,6 @@ class Upsert extends PureComponent {
   }
 
   async componentDidMount() {
-    console.log(this.props.match.params.model)
-    console.log(NavItems.find(item => item.alias === this.state.model))
     //console.
     this.setState({
       loading: true
@@ -38,35 +39,44 @@ class Upsert extends PureComponent {
     }
   }
 
+  onSubmit(evt) {
+    console.log(evt)
+    evt.preventDefault()
+    console.log('submit form')
+  }
+
+  renderForm(fields) {
+    return(
+      <Form
+        onSubmit={ this.onSubmit }>
+        { fields.map( (field) => this.renderField(field) )}
+      </Form> 
+    )
+  }
+
+  renderField({ type, label, name, required }) {
+    const data = this.state.data
+    return (
+      <Field 
+        key={ 'input_' + name }
+        type={ type } 
+        label={ label } 
+        name={ name }
+        required={ required }
+        value={ data[name] || undefined }
+      />
+    )
+  }
+
   render() {
     const {title, description, alias, fields} = this.state.model
-    const data = this.state.data
-
-
-    console.log(this.state.model)
-    console.log(data)
 
     return(
       <div>
         <h2>{ title } View</h2>
         <p>{ description }</p>
 
-
-        <Form
-          onSubmit={ () => {} }>
-          { fields.map( ({ type, label, name, required }) =>
-            <Field 
-              key={ 'input_' + name }
-              type={ type } 
-              label={ label } 
-              name={ name }
-              required={ required }
-              value={ data[name] || undefined }
-            />
-              
-          )}
-        </Form> 
-
+        { this.renderForm(fields) }
 
       </div>
     )
