@@ -10,7 +10,6 @@ class Upsert extends PureComponent {
 
   constructor(props) {
     super(props)
-    
   }
 
   state = {
@@ -30,7 +29,6 @@ class Upsert extends PureComponent {
     try {
       const request = await fetch('https://outpost.lunarworks.io/post.json')
       const response = await request.json()
-      console.log(response)
       this.setState({
         loading: false,
         data: response
@@ -41,8 +39,12 @@ class Upsert extends PureComponent {
   }
 
   render() {
-
     const {title, description, alias, fields} = this.state.model
+    const data = this.state.data
+
+
+    console.log(this.state.model)
+    console.log(data)
 
     return(
       <div>
@@ -52,14 +54,15 @@ class Upsert extends PureComponent {
 
         <Form
           onSubmit={ () => {} }>
-          { fields.map( ({type,label,name,required}) =>
+          { fields.map( ({ type, label, name, required }) =>
             <Field 
-              key={'input_' + name}
-              type={type} 
-              label={label} 
-              name={name}
-              required={required}
-               />
+              key={ 'input_' + name }
+              type={ type } 
+              label={ label } 
+              name={ name }
+              required={ required }
+              value={ data[name] || undefined }
+            />
               
           )}
         </Form> 
