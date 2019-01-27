@@ -21,8 +21,6 @@ class BrowseView extends PureComponent {
   }
 
   async componentDidMount() {
-    console.log(this.props.match.params.model)
-    console.log(NavItems.find(item => item.alias === this.state.model))
     //console.
     this.setState({
       loading: true
@@ -39,21 +37,62 @@ class BrowseView extends PureComponent {
     }
   }
 
-  render() {
+  renderHeaders() {
+    const data = this.state.data
+    if(data.length > 0) {
+      return (
+        <div>
+          { Object.keys(data[0]).map( (value) => <div>{ value }</div> ) }
+        </div>
+      )
+    } else {
+      return false
+    }
+  }
 
+  renderContent() {
+    const data = this.state.data
+    if(this.state.loading) {
+      return (
+        <div>Loading.</div>
+      )
+    } else if (data.length > 0) {
+      return (
+        <div>
+          { data.map( (item) => this.renderRow(item)) }
+        </div>
+      )
+    } else {
+      return (
+        <div>There's no conent. sorry.</div>
+      )
+    }
+  }
+
+  renderRow(item) {
+    return (
+      <div>
+        <NavLink to={ "/edit/" + this.state.model.alias + '/' + item.id}>
+          { Object.values(item).map( (value) => <div>{ value }</div> ) }
+        </NavLink>
+      </div>
+    )
+  }
+
+  render() {
     
     return(
       <div>
         <h2>List View</h2>
         <p></p>
 
-
-
-
+        <div>
+          { this.renderHeaders() }
+          { this.renderContent() }
+        </div>
       </div>
     )
   }
-
 
 }
 export default BrowseView

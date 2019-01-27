@@ -10,7 +10,9 @@ class Upsert extends PureComponent {
 
   constructor(props) {
     super(props)
-    
+
+    this.onSubmit = this.onSubmit.bind(this)
+    this.renderField = this.renderField.bind(this)
   }
 
   state = {
@@ -21,16 +23,15 @@ class Upsert extends PureComponent {
   }
 
   async componentDidMount() {
-    console.log(this.props.match.params.model)
-    console.log(NavItems.find(item => item.alias === this.state.model))
     //console.
     this.setState({
       loading: true
     }) 
     try {
+      console.log(this.state.model.alias)
+      // shove this alias in the fetch request for resources alias === resource url alias
       const request = await fetch('https://outpost.lunarworks.io/post.json')
       const response = await request.json()
-      console.log(response)
       this.setState({
         loading: false,
         data: response
@@ -40,8 +41,25 @@ class Upsert extends PureComponent {
     }
   }
 
-  render() {
+  onSubmit(data) {
+    console.log(data)
+  }
 
+  renderField({ type, label, name, required }) {
+    const data = this.state.data
+    return (
+      <Field 
+        key={ 'input_' + name }
+        type={ type } 
+        label={ label } 
+        name={ name }
+        required={ required }
+        value={ data[name] || undefined }
+      />
+    )
+  }
+
+  render() {
     const {title, description, alias, fields} = this.state.model
 
     return(
@@ -49,21 +67,11 @@ class Upsert extends PureComponent {
         <h2>{ title } View</h2>
         <p>{ description }</p>
 
-
+          
         <Form
-          onSubmit={ () => {} }>
-          { fields.map( ({type,label,name,required}) =>
-            <Field 
-              key={'input_' + name}
-              type={type} 
-              label={label} 
-              name={name}
-              required={required}
-               />
-              
-          )}
+          onSubmit={ this.onSubmit }>
+          { fields.map( (field) => this.renderField(field) )}
         </Form> 
-
 
       </div>
     )

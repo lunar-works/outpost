@@ -15,4 +15,4 @@ class Nav extends PureComponent {
   }
 } 
 
-export default Nav;
+export default Nav

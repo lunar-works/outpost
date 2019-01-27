@@ -22,8 +22,8 @@ const AppRouter = () => (
       <Route path="/dashboard" exact component={DashboardView} />
       <Route path="/about" component={About} />
       <Route path="/users" component={Users} />
-      <Route path="/browse/:model" component={BrowseView} />
-      <Route path="/edit/:model/:id" component={UpsertView} />
+      <Route path="/browse/:model" exact component={BrowseView} />
+      <Route path="/edit/:model/:id" exact component={UpsertView} />
     </div>
   </Router>
 );
