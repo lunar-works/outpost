@@ -12,7 +12,7 @@ class Upsert extends PureComponent {
     super(props)
 
     this.onSubmit = this.onSubmit.bind(this)
-    this.renderForm = this.renderForm.bind(this)
+    this.renderField = this.renderField.bind(this)
   }
 
   state = {
@@ -28,6 +28,8 @@ class Upsert extends PureComponent {
       loading: true
     }) 
     try {
+      console.log(this.state.model.alias)
+      // shove this alias in the fetch request for resources alias === resource url alias
       const request = await fetch('https://outpost.lunarworks.io/post.json')
       const response = await request.json()
       this.setState({
@@ -39,19 +41,8 @@ class Upsert extends PureComponent {
     }
   }
 
-  onSubmit(evt) {
-    console.log(evt)
-    evt.preventDefault()
-    console.log('submit form')
-  }
-
-  renderForm(fields) {
-    return(
-      <Form
-        onSubmit={ this.onSubmit }>
-        { fields.map( (field) => this.renderField(field) )}
-      </Form> 
-    )
+  onSubmit(data) {
+    console.log(data)
   }
 
   renderField({ type, label, name, required }) {
@@ -76,7 +67,11 @@ class Upsert extends PureComponent {
         <h2>{ title } View</h2>
         <p>{ description }</p>
 
-        { this.renderForm(fields) }
+          
+        <Form
+          onSubmit={ this.onSubmit }>
+          { fields.map( (field) => this.renderField(field) )}
+        </Form> 
 
       </div>
     )
