@@ -70,10 +70,7 @@ class Upsert extends PureComponent {
         <Form
           onSubmit={ this.onSubmit }>
           { fields.map( (field) => this.renderField(field) )}
-        </Form> 
-
-        
-        <Nav items={ NavItems } />
+        </Form>
 
       </div>
     )

@@ -5,11 +5,18 @@ export default {
 	fields: [{			// array, array of fields to render
 		name: 'title',
 		label: 'Post Title',
-	    required: true
+		required: true,
+		editable: true,
+		input: 'textarea',
+		type: 'string',
+		summary: true
 	},{
 		name: 'content',
 		label: 'Post Content',
-		required: true
+		required: true,
+		editable: true,
+		type: 'string',
+		summary: true
 	}],
 	endpoints: {		// array, object of crud endpoints BEARDS
 		browse: {
