@@ -1,6 +1,4 @@
 import React, { Component, PureComponent } from 'react'
-import Form from '../../components/Form'
-import Field from '../../components/Form/Field'
 import NavItems from '../../configs'
 
 import Nav from '../../components/Nav'
@@ -90,6 +88,8 @@ class BrowseView extends PureComponent {
           { this.renderHeaders() }
           { this.renderContent() }
         </div>
+        
+        <Nav items={ NavItems } />
       </div>
     )
   }

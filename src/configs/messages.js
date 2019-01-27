@@ -1,14 +1,14 @@
 export default {
-	alias: 'categories',			// string, url friendly, unique per application
-	title: 'Categories',			// string, readable name
-	description: 'These are categories', 	// string,
+	alias: 'message',			// string, url friendly, unique per application
+	title: 'Message',			// string, readable name
+	description: 'These are messages', 	// string,
 	fields: [{			// array, array of fields to render
 		name: 'title',
-		label: 'Category Title',
+		label: 'Message Title',
 	    required: true
 	},{
 		name: 'content',
-		label: 'Category Content',
+		label: 'Message Content',
 		required: true
 	}],
 	endpoints: {		// array, object of crud endpoints BEARDS

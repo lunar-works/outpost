@@ -12,7 +12,7 @@ class Nav extends PureComponent {
       <nav>
       { items.map(item => {
         return (
-          <NavLink to={ "browse/" + item.alias}>{item.title}</NavLink>
+          <NavLink to={ "/browse/" + item.alias}>{item.title}</NavLink>
         )
       } )}
       </nav>
