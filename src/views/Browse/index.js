@@ -1,10 +1,18 @@
 import React, { Component, PureComponent } from 'react'
-import Form from '../../components/Form'
-import Field from '../../components/Form/Field'
 import NavItems from '../../configs'
+import { NavLink } from 'react-router-dom'
 
-import Nav from '../../components/Nav'
-import { NavLink } from "react-router-dom"
+import moment from 'moment'
+import styled from 'styled-components'
+
+
+const Browse = styled.nav`
+  table {
+    tr {
+
+    }
+  }
+`
 
 class BrowseView extends PureComponent {
 
@@ -37,60 +45,65 @@ class BrowseView extends PureComponent {
     }
   }
 
-  renderHeaders() {
+  renderHead() {
     const data = this.state.data
     if(data.length > 0) {
       return (
-        <div>
-          { Object.keys(data[0]).map( (value) => <div>{ value }</div> ) }
-        </div>
+        <tr>
+          { Object.keys(data[0]).map( (value) => <th>{ value }</th> ) }
+        </tr>
       )
     } else {
       return false
     }
   }
 
-  renderContent() {
+  renderBody() {
     const data = this.state.data
     if(this.state.loading) {
       return (
-        <div>Loading.</div>
+        <tr><td>Loading.</td></tr>
       )
     } else if (data.length > 0) {
-      return (
-        <div>
-          { data.map( (item) => this.renderRow(item)) }
-        </div>
-      )
+      return data.map( (item) => this.renderRow(item))
     } else {
       return (
-        <div>There's no conent. sorry.</div>
+        <div>There's no content. sorry.</div>
       )
     }
   }
 
   renderRow(item) {
     return (
-      <div>
-        <NavLink to={ "/edit/" + this.state.model.alias + '/' + item.id}>
-          { Object.values(item).map( (value) => <div>{ value }</div> ) }
-        </NavLink>
-      </div>
+      <tr>
+        { Object.values(item).map( (value) => <td><NavLink to={ "/edit/" + this.state.model.alias + '/' + item.id}>{ value }</NavLink></td> ) }
+      </tr>
     )
+  }
+
+  renderFoot() {
+    return null
   }
 
   render() {
     
     return(
-      <div>
+      <Browse>
         <h2>List View</h2>
         <p></p>
 
-        <div>
-          { this.renderHeaders() }
-          { this.renderContent() }
-        </div>
-      </div>
+        <table>
+          <thead>
+            { this.renderHead() }
+          </thead>
+          <tbody>
+            { this.renderBody() }
+          </tbody>
+          <tfoot>
+            { this.renderFoot() }
+          </tfoot>
+        </table>
+      </Browse>
     )
   }
 

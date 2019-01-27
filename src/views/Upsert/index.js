@@ -1,10 +1,9 @@
 import React, { Component, PureComponent } from 'react'
 import Form from '../../components/Form'
 import Field from '../../components/Form/Field'
-import NavItems from '../../configs'
 
+import NavItems from '../../configs'
 import Nav from '../../components/Nav'
-import { NavLink } from "react-router-dom"
 
 class Upsert extends PureComponent {
 
@@ -71,7 +70,7 @@ class Upsert extends PureComponent {
         <Form
           onSubmit={ this.onSubmit }>
           { fields.map( (field) => this.renderField(field) )}
-        </Form> 
+        </Form>
 
       </div>
     )
