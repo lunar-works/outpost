@@ -5,6 +5,21 @@ import Field from '../../components/Form/Field'
 import NavItems from '../../configs'
 import Nav from '../../components/Nav'
 
+import styled from 'styled-components'
+
+const Wrap = styled.div`
+  h2 {
+    text-transform: capitalize;
+    padding-bottom: 2em;
+  }
+
+  form {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+`
+
 class Upsert extends PureComponent {
 
   constructor(props) {
@@ -62,7 +77,7 @@ class Upsert extends PureComponent {
     const {title, description, alias, fields} = this.state.model
 
     return(
-      <div>
+      <Wrap>
         <h2>{ title } View</h2>
         <p>{ description }</p>
 
@@ -72,7 +87,7 @@ class Upsert extends PureComponent {
           { fields.map( (field) => this.renderField(field) )}
         </Form>
 
-      </div>
+      </Wrap>
     )
   }
 

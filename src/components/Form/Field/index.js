@@ -1,5 +1,14 @@
 import React, { PureComponent } from 'react'
 
+import styled from 'styled-components'
+
+const Fieldset = styled.fieldset`
+	padding: 1.2em 3em;
+	border: 1px solid #ebedf1;
+	margin: 1em auto;
+	border-radius: 3px;
+`
+
 class Field extends PureComponent {
 
 	constructor(props){
@@ -17,14 +26,14 @@ class Field extends PureComponent {
 	onChange(e){
 		if(e.target.validity.valid){
 			this.setState({valid: true})
-		}else {
+		} else {
 			this.setState({valid: false})
 		}
 	}
 
 	renderRegularInputs({type, name, label, required = false, minlength = 3, maxlength = 9999, pattern = undefined, placeholder = undefined, value=undefined}){
 		return (
-			<fieldset>
+			<Fieldset>
 				<label 
 					data-valid={this.state.valid} 
 					htmlFor={name}>{label}</label>
@@ -39,7 +48,7 @@ class Field extends PureComponent {
 					maxLength={maxlength}
 					onChange={this.onChange}
 				/>
-			</fieldset>
+			</Fieldset>
 		)
 	}
 

@@ -1,5 +1,11 @@
 import React, { PureComponent } from 'react'
 
+import styled from 'styled-components'
+
+const Wrap = styled.form`
+
+`
+
 class Form extends PureComponent {
 
       constructor(props) {
@@ -34,7 +40,7 @@ class Form extends PureComponent {
       render() {
             const { children } = this.props
             return(
-                  <form 
+                  <Wrap 
                         ref='form'
                         onSubmit={this.submit}
                   >
@@ -44,7 +50,7 @@ class Form extends PureComponent {
                         <div>
                               <input type="submit" value="Submit" /> 
                         </div>
-                  </form>
+                  </Wrap>
             )
       }
 }
