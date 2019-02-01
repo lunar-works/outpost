@@ -11,33 +11,34 @@ const Fieldset = styled.fieldset`
 	position: relative;
 	
 	input {
-		font-size:18px;
-		padding:10px 10px 10px 5px;
-		display:block;
-		border:none;
-		border-bottom:1px solid #757575;
+		font-size: 1.2em;
+		padding: 0.6em 0 0.6em 0.6em;
+		display: block;
+		border: none;
+		border-bottom: 1px solid #4e535f;
+		background: transparent;
 	}
 	input:focus { 
 		outline:none;
 	}
 
 	label {
-		color:#999; 
-		font-size:18px;
-		font-weight:normal;
+		color: #999;
+		font-size: 18px;
+		font-weight: normal;
 		position: absolute;
-		pointer-events:none;
-		left: 1.3em;
-		bottom: 2.2em;
-		transition:0.2s ease all; 
-		-moz-transition:0.2s ease all; 
-		-webkit-transition:0.2s ease all;
+		pointer-events: none;
+		left: 1.4em;
+		bottom: 2.3em;
+		transition: 0.2s ease all; 
+		-moz-transition: 0.2s ease all; 
+		-webkit-transition: 0.2s ease all;
 	}
 	
 	input:focus ~ label, input:valid ~ label {
 		bottom: 6.2em;
 		font-size: 0.9em;
-		color: #5264AE;
+		color: #5264ae;
 	}
 `
 
