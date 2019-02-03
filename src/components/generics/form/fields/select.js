@@ -25,7 +25,7 @@ class SelectComponent extends PureComponent {
 	}
 
 	render() {
-		const {name, type, label, required, checked, data} = this.props
+		const {name, type, label, required, checked, data, options} = this.props
 		return (
 			<Select>
                 <Label 

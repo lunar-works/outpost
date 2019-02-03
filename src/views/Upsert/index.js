@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react'
-import Form from '../../components/Form'
-import Field from '../../components/Form/Field'
+import Form from '../../components/generics/form'
+import { Field } from '../../components/generics/form/fields'
 
 import NavItems from '../../configs'
 import Nav from '../../components/Nav'
