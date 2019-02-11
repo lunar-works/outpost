@@ -34,7 +34,7 @@ class Form extends PureComponent {
                   >
                         {this.props.children}
                         <div>
-                              <Btn type="submit">{this.props.buttonText || "submit"}</Btn>
+                              <Btn type="submit" value={this.props.buttonText || "submit"}></Btn>
                         </div>
                   </form>
             )

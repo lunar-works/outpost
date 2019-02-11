@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react'
 import Form from '../../components/generics/form'
 import { Field } from '../../components/generics/form/fields'
+import { AuthContext } from '../../components/providers/auth'
 
 import NavItems from '../../configs'
 import Nav from '../../components/Nav'
@@ -21,6 +22,7 @@ const Wrap = styled.div`
 `
 
 class Upsert extends PureComponent {
+  static contextType = AuthContext
 
   constructor(props) {
     super(props)

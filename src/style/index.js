@@ -9,8 +9,12 @@ const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
+    overflow-x:hidden;
     background: ${props => (props.theme.main.background)};
     font-family: ${props => props.theme.main.font}
+    * {
+      box-sizing: border-box;
+    }
   }
 `
 

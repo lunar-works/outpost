@@ -1,9 +1,11 @@
 import React, { Component, PureComponent } from 'react'
 import NavItems from '../../configs'
 import { NavLink } from 'react-router-dom'
+import { AuthContext } from '../../components/providers/auth'
 
 import moment from 'moment'
 import styled from 'styled-components'
+
 
 const Browse = styled.div`
   h2 {
@@ -54,6 +56,7 @@ const Browse = styled.div`
 `
 
 class BrowseView extends PureComponent {
+  static contextType = AuthContext
 
   constructor(props) {
     super(props)

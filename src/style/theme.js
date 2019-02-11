@@ -1,11 +1,11 @@
 const theme = {
     main: {
-        background: '#f1f1f1',
+        background: '#fff',
         font: 'sans-serif',
         borderRadius: '4px'
     },
     headings: {
-        color: '#666',
+        color: 'red',
         h1: {
             size: '3rem'
         },
@@ -28,9 +28,15 @@ const theme = {
     containers: {
         background: '#fff',
         border: '1px solid #ccc',
-        padding: '1rem 2rem'
+        padding: '1rem 2rem',
+        podSeperator: '2rem'
+    },
+    mast: {
+        background: () => theme.containers.background,
+        shadow: true
     },
     buttons: {
+        background: 'blue',
         borderRadius: () => theme.main.borderRadius
     }
 }

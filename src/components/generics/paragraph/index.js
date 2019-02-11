@@ -2,9 +2,9 @@ import React from 'react'
 import styled,{css} from 'styled-components'
 
 const paragraphBase = css`
-    margin-bottom:5px;
-    font-size: 0.9rem;
+    margin: 1rem 0;
     color: #666;
+    line-height:170%;
 `
 
 const paragraph = styled.p`

@@ -1,15 +1,24 @@
 import React from 'react'
 import styled,{css} from 'styled-components'
 
-const btnBase = css`
-    all:unset;    
-    padding: 1rem;
-    background: blue;
+const btnBase = css`   
+    padding: 1rem 2rem;
+    ${props => props.transparent === undefined
+    ? `background: ${props.theme.buttons.background};`
+    : `border: 1px solid ${props.theme.buttons.background};
+       background: transparent;
+      `
+    }
+    text-decoration:none;
     color: #fff;
-    display:block;
-    width:100%;
+    
+    ${props => props.type === "full"
+        ?`display:block;`
+        :`display:inline-block;`
+    }
     text-align:center;
     box-sizing: border-box;
+    text-transform: uppercase;
     border-radius: ${props => props.theme.buttons.borderRadius}
     &:hover {
         cursor: pointer;
@@ -28,21 +37,21 @@ const ButtonBtnBase = styled.input`
     ${btnBase}
 `
 
-const Button = (props) => <ButtonBtnBase>{props.children}</ButtonBtnBase>
+const Button = (props) => <ButtonBtnBase {...props}>{props.children}</ButtonBtnBase>
 
-const LinkButton = (props) => <LinkBtnBase href={props.href}>{props.children}</LinkBtnBase>
+const LinkButton = (props) => <LinkBtnBase {...props} href={props.href}>{props.children}</LinkBtnBase>
 
-const Submit = (props) => <SubmitBtnBase value={props.children} type="submit"/>
+const Submit = (props) => <SubmitBtnBase {...props} value={props.value} type="submit"/>
 
 
 export default (props) => {
     switch(props.type) {
         case "link":
-            return <LinkButton />
+            return <LinkButton {...props}>{props.children}</LinkButton>
         case "submit":
-            return <Submit value={props.children}/>
+            return <Submit {...props}  value={props.value}/>
         default:
-            return <Button>{props.children}</Button>
+            return <Button {...props}>{props.children}</Button>
     }
 }
     

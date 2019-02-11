@@ -5,7 +5,9 @@ const podBase = css`
     background: ${props => props.theme.containers.background || ''};
     border-radius: ${props => props.theme.main.borderRadius || ''};
     border: ${props => props.theme.containers.border || ''};
-    marign: ${props => props.theme.containers.margin || 0};
+    margin: ${props => props.theme.containers.podSeperator || 0};
+    min-width:300px;
+    width: 100%;
 `
 
 const Pod = styled.article`
