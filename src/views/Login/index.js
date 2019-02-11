@@ -2,7 +2,6 @@ import React, { Component, PureComponent } from 'react'
 import Form from '../../components/Form'
 import Field from '../../components/Form/Field'
 
-
 const fields = [
   {
     name: 'email',
@@ -35,7 +34,7 @@ class Login extends Component {
 
   async login(data) {
     try {
-      const request = await fetch('https://outpost.lunarworks.io/data.json')
+      const request = await fetch('https://skylab.lunarworks.io/data.json')
       const response = await request.json()
       this.props.history.push('/dashboard')
     } catch (error) {

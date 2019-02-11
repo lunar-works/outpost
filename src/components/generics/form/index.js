@@ -1,20 +1,10 @@
 import React, { PureComponent } from 'react'
-
-import styled from 'styled-components'
-
-const Wrap = styled.form`
-
-`
-
+import Btn from '../button'
 class Form extends PureComponent {
 
       constructor(props) {
             super(props)
             this.submit = this.submit.bind(this)
-      }
-
-      validate() {
-
       }
 
       submit(e) {
@@ -28,7 +18,6 @@ class Form extends PureComponent {
                               total[current.name] = current.value
                               return total;
                         }, {})
-                  console.log(formData)
                   this.props.onSubmit(formData)
             } else {
                   console.log(typeof this.props.onSubmit === 'function')
@@ -38,19 +27,16 @@ class Form extends PureComponent {
       }
 
       render() {
-            const { children } = this.props
             return(
-                  <Wrap 
+                  <form 
                         ref='form'
                         onSubmit={this.submit}
                   >
-                        { children.map(item =>
-                              React.cloneElement(item, {onInput: this.validate})
-                        )}
+                        {this.props.children}
                         <div>
-                              <input type="submit" value="Submit" /> 
+                              <Btn type="submit" value={this.props.buttonText || "submit"}></Btn>
                         </div>
-                  </Wrap>
+                  </form>
             )
       }
 }

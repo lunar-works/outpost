@@ -1,20 +1,62 @@
 import React, { Component, PureComponent } from 'react'
 import NavItems from '../../configs'
 import { NavLink } from 'react-router-dom'
+import { AuthContext } from '../../components/providers/auth'
 
 import moment from 'moment'
 import styled from 'styled-components'
 
 
-const Browse = styled.nav`
-  table {
-    tr {
+const Browse = styled.div`
+  h2 {
+    text-transform: capitalize;
+    padding-bottom: 2em;
+  }
 
+  table {
+    background: #f6f8fb;
+    color: #3e4556;
+    border-collapse: collapse;
+    tr {
+      &:nth-child(2n) {
+        background: #f0f2f6;
+      }
+      
+      &:hover, &:nth-child(2n):hover {
+        background: #e2e6ef;  
+      }
+      a, a:link {
+        display: block;
+        padding: 0.6em 1.2em 0.6em 1em;
+        text-decoration: none;
+        color: #3e4556;
+        &:hover {
+          background: #dde1ea;
+        }
+        &:active {
+
+        }
+      }
+    }
+    th {
+      padding: 0.6em 1.2em 0.6em 1em;
+    }
+    tbody {
+
+    }
+    thead {
+      font-size: 1.2em;
+      text-align: left;
+      
+      tr, th {
+        background: #b2bacd;
+      }
     }
   }
 `
 
 class BrowseView extends PureComponent {
+  static contextType = AuthContext
 
   constructor(props) {
     super(props)
@@ -89,7 +131,7 @@ class BrowseView extends PureComponent {
     
     return(
       <Browse>
-        <h2>List View</h2>
+        <h2>{ this.state.model.alias } - List View</h2>
         <p></p>
 
         <table>

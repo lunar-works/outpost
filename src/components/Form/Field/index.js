@@ -1,5 +1,48 @@
 import React, { PureComponent } from 'react'
 
+import styled from 'styled-components'
+
+const Fieldset = styled.fieldset`
+	padding: 3em 1em 2em;
+	border: 1px solid #ebedf1;
+	margin: 1em auto;
+	border-radius: 3px;
+	display: block;
+	position: relative;
+	
+	input {
+		font-size: 1.2em;
+		padding: 0.6em 0 0.6em 0.6em;
+		display: block;
+		border: none;
+		border-bottom: 1px solid #4e535f;
+		background: transparent;
+	}
+	input:focus { 
+		outline:none;
+	}
+
+	label {
+		color: #999;
+		font-size: 18px;
+		font-weight: normal;
+		position: absolute;
+		pointer-events: none;
+		left: 1.4em;
+		bottom: 2.3em;
+		transition: 0.2s ease all; 
+		-moz-transition: 0.2s ease all; 
+		-webkit-transition: 0.2s ease all;
+	}
+	
+	input:focus ~ label, input:valid ~ label {
+		bottom: 6.2em;
+		font-size: 0.9em;
+		color: #5264ae;
+	}
+`
+
+
 class Field extends PureComponent {
 
 	constructor(props){
@@ -17,17 +60,14 @@ class Field extends PureComponent {
 	onChange(e){
 		if(e.target.validity.valid){
 			this.setState({valid: true})
-		}else {
+		} else {
 			this.setState({valid: false})
 		}
 	}
 
 	renderRegularInputs({type, name, label, required = false, minlength = 3, maxlength = 9999, pattern = undefined, placeholder = undefined, value=undefined}){
 		return (
-			<fieldset>
-				<label 
-					data-valid={this.state.valid} 
-					htmlFor={name}>{label}</label>
+			<Fieldset>
 				<input 
 					type={type} 
 					name={name}
@@ -39,7 +79,10 @@ class Field extends PureComponent {
 					maxLength={maxlength}
 					onChange={this.onChange}
 				/>
-			</fieldset>
+				<label 
+					data-valid={this.state.valid} 
+					htmlFor={name}>{label}</label>
+			</Fieldset>
 		)
 	}
 
