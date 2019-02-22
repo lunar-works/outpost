@@ -26,16 +26,20 @@ class Nav extends PureComponent {
 
   render() {
     const items = this.props.items
+    const isActive = (path) => {
+      const data  = document.location.pathname === path ? true : false
+      console.log(data)
+    }
     return (
       <Navigation>
         <NavLink
-          to="/dashboard"
-        >Dashboard</NavLink>
+          to="/dashboard">
+        Dashboard</NavLink>
         { items.map(item => {
           return (
             <NavLink 
-              to={ "/browse/" + item.alias}
-            >{item.title}</NavLink>
+              to={ `/browse/${item.alias}`}>
+            {item.title}</NavLink>
           )
         } )}
       </Navigation>

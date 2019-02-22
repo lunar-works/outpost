@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react'
 import NavItems from '../../configs'
 import { NavLink } from 'react-router-dom'
 import { AuthContext } from '../../components/providers/auth'
-
+import Layout from '../../layouts/dashLayout'
 import moment from 'moment'
 import styled from 'styled-components'
 
@@ -130,22 +130,24 @@ class BrowseView extends PureComponent {
   render() {
     
     return(
-      <Browse>
-        <h2>{ this.state.model.alias } - List View</h2>
-        <p></p>
+      <Layout>
+        <Browse>
+          <h2>{ this.state.model.alias } - List View</h2>
+          <p></p>
 
-        <table>
-          <thead>
-            { this.renderHead() }
-          </thead>
-          <tbody>
-            { this.renderBody() }
-          </tbody>
-          <tfoot>
-            { this.renderFoot() }
-          </tfoot>
-        </table>
-      </Browse>
+          <table>
+            <thead>
+              { this.renderHead() }
+            </thead>
+            <tbody>
+              { this.renderBody() }
+            </tbody>
+            <tfoot>
+              { this.renderFoot() }
+            </tfoot>
+          </table>
+        </Browse>
+      </Layout>
     )
   }
 

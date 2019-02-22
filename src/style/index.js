@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 import themeBase from './theme'
 
 const GlobalStyle = createGlobalStyle`
-  html, body, #__next{
+  html, body, #__next, #root{
     height:100%;
   }
 
