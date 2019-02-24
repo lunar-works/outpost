@@ -65,36 +65,34 @@ class Field extends PureComponent {
 		}
 	}
 
-	renderRegularInputs({type, name, label, required = false, minlength = 3, maxlength = 9999, pattern = undefined, placeholder = undefined, value=undefined}){
+	renderRegularInputs({type, name, label, required = false, minlength = 3, maxlength = 9999, pattern = undefined}){
 		return (
-			<Fieldset>
+			<>
+				<label 
+					data-valid={this.state.valid} 
+					htmlFor={name}>{label}</label>
 				<input 
 					type={type} 
 					name={name}
 					required={required}
 					pattern={pattern}
-					placeholder={placeholder}
-					defaultValue={value}
 					minLength={minlength}
 					maxLength={maxlength}
 					onChange={this.onChange}
 				/>
-				<label 
-					data-valid={this.state.valid} 
-					htmlFor={name}>{label}</label>
-			</Fieldset>
+			</>
 		)
 	}
 
 	renderCheckInputs ({type, name, label}) {
 		return (
-			<fieldset>
+			<>
 				<input 
 					type={type} 
 					name={name}
 				/>
 				<label htmlFor={name}>{label}</label>
-			</fieldset>
+			</>
 		)
 	}
 
