@@ -1,4 +1,6 @@
 import React, { Component, PureComponent } from 'react'
+import axios from 'axios'
+
 import Form from '../../components/Form'
 import Field from '../../components/Form/Field'
 
@@ -33,14 +35,18 @@ class Login extends Component {
   } 
 
   async login(data) {
-    try {
-      const request = await fetch('https://skylab.lunarworks.io/data.json')
-      const response = await request.json()
-      this.props.history.push('/dashboard')
-    } catch (error) {
-      console.error(error)
-    }
-    
+    const history = this.props.history
+    axios.post('https://skylab.lunarworks.io/admin/api/login', {
+      'email': data.email,
+      'password': data.password 
+    })
+    .then(function (response) {
+      console.log(response)
+      history.push('/dashboard')
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
   }
 
   render() {
