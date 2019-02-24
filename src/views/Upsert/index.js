@@ -1,18 +1,34 @@
 import React, { Component, PureComponent } from 'react'
-import Form from '../../components/Form'
-import Field from '../../components/Form/Field'
-import NavItems from '../../configs'
+import Form from '../../components/generics/form'
+import { Field } from '../../components/generics/form/fields'
+import { AuthContext } from '../../components/providers/auth'
 
+import NavItems from '../../configs'
 import Nav from '../../components/Nav'
-import { NavLink } from "react-router-dom"
+
+import styled from 'styled-components'
+
+const Wrap = styled.div`
+  h2 {
+    text-transform: capitalize;
+    padding-bottom: 2em;
+  }
+
+  form {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+`
 
 class Upsert extends PureComponent {
+  static contextType = AuthContext
 
   constructor(props) {
     super(props)
 
     this.onSubmit = this.onSubmit.bind(this)
-    this.renderForm = this.renderForm.bind(this)
+    this.renderField = this.renderField.bind(this)
   }
 
   state = {
@@ -28,6 +44,8 @@ class Upsert extends PureComponent {
       loading: true
     }) 
     try {
+      console.log(this.state.model.alias)
+      // shove this alias in the fetch request for resources alias === resource url alias
       const request = await fetch('https://outpost.lunarworks.io/post.json')
       const response = await request.json()
       this.setState({
@@ -39,19 +57,8 @@ class Upsert extends PureComponent {
     }
   }
 
-  onSubmit(evt) {
-    console.log(evt)
-    evt.preventDefault()
-    console.log('submit form')
-  }
-
-  renderForm(fields) {
-    return(
-      <Form
-        onSubmit={ this.onSubmit }>
-        { fields.map( (field) => this.renderField(field) )}
-      </Form> 
-    )
+  onSubmit(data) {
+    console.log(data)
   }
 
   renderField({ type, label, name, required }) {
@@ -72,13 +79,17 @@ class Upsert extends PureComponent {
     const {title, description, alias, fields} = this.state.model
 
     return(
-      <div>
+      <Wrap>
         <h2>{ title } View</h2>
         <p>{ description }</p>
 
-        { this.renderForm(fields) }
+          
+        <Form
+          onSubmit={ this.onSubmit }>
+          { fields.map( (field) => this.renderField(field) )}
+        </Form>
 
-      </div>
+      </Wrap>
     )
   }
 

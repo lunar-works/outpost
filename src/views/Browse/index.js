@@ -1,12 +1,62 @@
 import React, { Component, PureComponent } from 'react'
-import Form from '../../components/Form'
-import Field from '../../components/Form/Field'
 import NavItems from '../../configs'
+import { NavLink } from 'react-router-dom'
+import { AuthContext } from '../../components/providers/auth'
+import Layout from '../../layouts/dashLayout'
+import moment from 'moment'
+import styled from 'styled-components'
 
-import Nav from '../../components/Nav'
-import { NavLink } from "react-router-dom"
+
+const Browse = styled.div`
+  h2 {
+    text-transform: capitalize;
+    padding-bottom: 2em;
+  }
+
+  table {
+    background: #f6f8fb;
+    color: #3e4556;
+    border-collapse: collapse;
+    tr {
+      &:nth-child(2n) {
+        background: #f0f2f6;
+      }
+      
+      &:hover, &:nth-child(2n):hover {
+        background: #e2e6ef;  
+      }
+      a, a:link {
+        display: block;
+        padding: 0.6em 1.2em 0.6em 1em;
+        text-decoration: none;
+        color: #3e4556;
+        &:hover {
+          background: #dde1ea;
+        }
+        &:active {
+
+        }
+      }
+    }
+    th {
+      padding: 0.6em 1.2em 0.6em 1em;
+    }
+    tbody {
+
+    }
+    thead {
+      font-size: 1.2em;
+      text-align: left;
+      
+      tr, th {
+        background: #b2bacd;
+      }
+    }
+  }
+`
 
 class BrowseView extends PureComponent {
+  static contextType = AuthContext
 
   constructor(props) {
     super(props)
@@ -37,60 +87,67 @@ class BrowseView extends PureComponent {
     }
   }
 
-  renderHeaders() {
+  renderHead() {
     const data = this.state.data
     if(data.length > 0) {
       return (
-        <div>
-          { Object.keys(data[0]).map( (value) => <div>{ value }</div> ) }
-        </div>
+        <tr>
+          { Object.keys(data[0]).map( (value) => <th>{ value }</th> ) }
+        </tr>
       )
     } else {
       return false
     }
   }
 
-  renderContent() {
+  renderBody() {
     const data = this.state.data
     if(this.state.loading) {
       return (
-        <div>Loading.</div>
+        <tr><td>Loading.</td></tr>
       )
     } else if (data.length > 0) {
-      return (
-        <div>
-          { data.map( (item) => this.renderRow(item)) }
-        </div>
-      )
+      return data.map( (item) => this.renderRow(item))
     } else {
       return (
-        <div>There's no conent. sorry.</div>
+        <div>There's no content. sorry.</div>
       )
     }
   }
 
   renderRow(item) {
     return (
-      <div>
-        <NavLink to={ "/edit/" + this.state.model.alias + '/' + item.id}>
-          { Object.values(item).map( (value) => <div>{ value }</div> ) }
-        </NavLink>
-      </div>
+      <tr>
+        { Object.values(item).map( (value) => <td><NavLink to={ "/edit/" + this.state.model.alias + '/' + item.id}>{ value }</NavLink></td> ) }
+      </tr>
     )
+  }
+
+  renderFoot() {
+    return null
   }
 
   render() {
     
     return(
-      <div>
-        <h2>List View</h2>
-        <p></p>
+      <Layout>
+        <Browse>
+          <h2>{ this.state.model.alias } - List View</h2>
+          <p></p>
 
-        <div>
-          { this.renderHeaders() }
-          { this.renderContent() }
-        </div>
-      </div>
+          <table>
+            <thead>
+              { this.renderHead() }
+            </thead>
+            <tbody>
+              { this.renderBody() }
+            </tbody>
+            <tfoot>
+              { this.renderFoot() }
+            </tfoot>
+          </table>
+        </Browse>
+      </Layout>
     )
   }
 
