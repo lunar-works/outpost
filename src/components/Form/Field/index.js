@@ -80,7 +80,6 @@ class Field extends PureComponent {
 					maxLength={maxlength}
 					onChange={this.onChange}
 				/>
-				
 			</>
 		)
 	}
