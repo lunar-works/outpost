@@ -7,9 +7,8 @@ export const ColumnContainerBase = css`
     width: 100%;
     background: ${props => props.theme.containers.background};
     flex-direction: column;
-    ${props => console.log(props.size)}
     flex: ${props => props.size || 1};
-    justify-content: center;
+    justify-content: ${props => props.position || 'flex-start'};
     ${props => props.image 
         ? `
             background-image: url(${props.image});

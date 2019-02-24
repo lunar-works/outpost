@@ -1,6 +1,6 @@
 const theme = {
     main: {
-        background: '#fff',
+        background: '#F8F9FD',
         font: 'sans-serif',
         borderRadius: '4px'
     },
@@ -26,13 +26,13 @@ const theme = {
         }
     },
     containers: {
-        background: '#fff',
+        background: 'transparent',
         border: '1px solid #ccc',
         padding: '1rem 2rem',
         podSeperator: '2rem'
     },
     mast: {
-        background: () => theme.containers.background,
+        background: '#fff',
         shadow: true
     },
     buttons: {

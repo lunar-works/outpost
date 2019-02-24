@@ -1,11 +1,29 @@
 import React, { Component, PureComponent } from 'react'
-import {Content, GridContainer} from '../../components/generics/containers'
+import {Content, GridContainer, ColumnContainer} from '../../components/generics/containers'
+import Mast from '../../components/generics/mast'
+import PrimaryNav from '../../components/generics/navigation/primary'
 import NavItems from '../../configs'
-import Header from '../../components/Nav/Wrap'
+import { NavLink } from 'react-router-dom'
+
+const items = NavItems.map(item => {
+    return {
+        alias: item.title,
+        component: <NavLink to={`/browse/${item.alias}`}><a>{item.title}</a></NavLink>
+    }
+})
 
 const Layout = (props) => 
     <GridContainer>
-        <Header name={ 'Outpost' } tagline={ 'For all your outy posty needs'} src={ '' } items={ NavItems } />
+        <Mast>
+            {/*<Logo name={name} tagline={tagline} src={src} />*/}
+            <PrimaryNav items={[
+                {
+                    alias: 'Dashboard', 
+                    component: <NavLink to={`/dashboard`}><a>Dashboard</a></NavLink>
+                },
+                ...items
+            ]} />
+        </Mast>
         <Content>
             {props.children}
         </Content>

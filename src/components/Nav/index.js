@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import styled from 'styled-components'
@@ -19,14 +19,7 @@ const Navigation = styled.nav`
   }
 `
 
-const oddEvent = (match) => {
-  if (match === document.location.pathname) {
-    return true
-  }
-  return false
-}
-
-class Nav extends PureComponent {
+class Nav extends Component {
   constructor(props) {
     super(props)
   }
@@ -42,10 +35,9 @@ class Nav extends PureComponent {
         <NavLink
           to="/dashboard">
         Dashboard</NavLink>
-        { items.map(item => {
+        { items.map((item, i) => {
           return (
             <NavLink 
-              isActive={() => oddEvent(`/browse/${item.alias}`)}
               to={ `/browse/${item.alias}`}>
             {item.title}</NavLink>
           )
