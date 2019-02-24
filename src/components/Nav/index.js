@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import styled from 'styled-components'
@@ -19,23 +19,27 @@ const Navigation = styled.nav`
   }
 `
 
-class Nav extends PureComponent {
+class Nav extends Component {
   constructor(props) {
     super(props)
   }
 
   render() {
     const items = this.props.items
+    const isActive = (path) => {
+      const data  = document.location.pathname === path ? true : false
+      console.log(data)
+    }
     return (
       <Navigation>
         <NavLink
-          to="/dashboard"
-        >Dashboard</NavLink>
-        { items.map(item => {
+          to="/dashboard">
+        Dashboard</NavLink>
+        { items.map((item, i) => {
           return (
             <NavLink 
-              to={ "/browse/" + item.alias}
-            >{item.title}</NavLink>
+              to={ `/browse/${item.alias}`}>
+            {item.title}</NavLink>
           )
         } )}
       </Navigation>

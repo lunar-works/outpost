@@ -1,14 +1,18 @@
+import React from 'react'
 import styled, {css} from 'styled-components'
 
 export const mastBase = css`
     display:flex;
-    position:fixed;
     align-items: center;
+    height:100%;
+    padding:1rem;
     box-sizing: content-box;
     background: ${props => props.theme.mast.background};
     ${props => props.position === "top"
         ?  `
             top:0;
+            position:fixed;
+            height:auto;
             width:100%;
             flex-direction: row;
         `

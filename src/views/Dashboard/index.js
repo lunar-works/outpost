@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-
+import Layout from '../../layouts/dashLayout'
 import NavItems from '../../configs'
 import Nav from '../../components/Nav'
 import { AuthContext } from '../../components/providers/auth'
@@ -11,9 +11,9 @@ class DashboardView extends PureComponent {
   render() {
     
     return( 
-      <div>
+      <Layout>
         <h2>Dashboard</h2>
-      </div>
+      </Layout>
     )
   }
 }

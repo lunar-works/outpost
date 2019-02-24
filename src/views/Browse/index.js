@@ -2,9 +2,10 @@ import React, { Component, PureComponent } from 'react'
 import NavItems from '../../configs'
 import { NavLink } from 'react-router-dom'
 import { AuthContext } from '../../components/providers/auth'
-
+import Layout from '../../layouts/dashLayout'
 import moment from 'moment'
 import styled from 'styled-components'
+import { GridContainer, PositionContainer } from '../../components/generics/containers';
 
 
 const Browse = styled.div`
@@ -13,45 +14,53 @@ const Browse = styled.div`
     padding-bottom: 2em;
   }
 
-  table {
-    background: #f6f8fb;
-    color: #3e4556;
-    border-collapse: collapse;
-    tr {
-      &:nth-child(2n) {
-        background: #f0f2f6;
-      }
-      
-      &:hover, &:nth-child(2n):hover {
-        background: #e2e6ef;  
-      }
-      a, a:link {
-        display: block;
-        padding: 0.6em 1.2em 0.6em 1em;
-        text-decoration: none;
-        color: #3e4556;
-        &:hover {
-          background: #dde1ea;
-        }
-        &:active {
+`
 
-        }
-      }
-    }
-    th {
+const Table = styled.table`
+  color: #3e4556;
+  border-collapse: collapse;
+  border-radius: 4px;
+  td{
+    border-top: 1px solid #f1f1f1;
+    padding: 0.5rem;
+    text-transform: capitalize;
+    border-radius: 4px;
+  }
+  tr {
+    a, a:link {
+      display: block;
       padding: 0.6em 1.2em 0.6em 1em;
-    }
-    tbody {
+      text-decoration: none;
+      color: #3e4556;
+      &:active {
 
-    }
-    thead {
-      font-size: 1.2em;
-      text-align: left;
-      
-      tr, th {
-        background: #b2bacd;
       }
     }
+  }
+  th {
+    padding: 1.4rem;
+    opacity:0.5;
+    text-transform: capitalize;
+    font-weight: normal;
+  }
+  tbody {
+    background: #fff;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    tr{
+      &:first-child{
+        border-radius:4px 4px 0px 0px;
+      }
+      &:last-child{
+        border-radius:0 0 4px 4px;
+      }
+    }
+    
+  }
+  thead {
+    font-size: 1em;
+    text-align:center;
+    
   }
 `
 
@@ -92,7 +101,7 @@ class BrowseView extends PureComponent {
     if(data.length > 0) {
       return (
         <tr>
-          { Object.keys(data[0]).map( (value) => <th>{ value }</th> ) }
+          { Object.keys(data[0]).map( (value) => <th>{ value.replace('_', ' ') }</th> ) }
         </tr>
       )
     } else {
@@ -130,22 +139,23 @@ class BrowseView extends PureComponent {
   render() {
     
     return(
-      <Browse>
-        <h2>{ this.state.model.alias } - List View</h2>
-        <p></p>
-
-        <table>
-          <thead>
-            { this.renderHead() }
-          </thead>
-          <tbody>
-            { this.renderBody() }
-          </tbody>
-          <tfoot>
-            { this.renderFoot() }
-          </tfoot>
-        </table>
-      </Browse>
+      <Layout>
+          <h2>{ this.state.model.title } - List View</h2>
+          <p></p>
+          <div style={{padding:'1rem', width:"100%",height: "100%", overflowX: "auto"}}> 
+            <Table>
+              <thead>
+                { this.renderHead() }
+              </thead>
+              <tbody>
+                { this.renderBody() }
+              </tbody>
+              <tfoot>
+                { this.renderFoot() }
+              </tfoot>
+            </Table>
+          </div>
+      </Layout>
     )
   }
 

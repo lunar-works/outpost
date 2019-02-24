@@ -8,8 +8,7 @@ import DashboardView from './views/Dashboard'
 import BrowseView from './views/Browse'
 import UpsertView from './views/Upsert'
 
-import NavItems from './configs'
-import Header from './components/Nav/Wrap'
+import config from './configs'
 
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
@@ -28,20 +27,20 @@ const Users = () => <h2>Users</h2>
 
 const AppRouter = () => (
   <ThemeProvider  theme={theme}>
-    <Router>
-      <AppWrapper>
-        <GlobalStyle />
-        <Header name={ 'Outpost' } tagline={ 'For all your outy posty needs'} src={ '' } items={ NavItems } />
-        <Content>
-          <Route path="/" exact component={LoginView} />
-          <Route path="/dashboard" exact component={DashboardView} />
-          <Route path="/about" exact component={About} />
-          <Route path="/users" exact component={Users} />
-          <Route path="/browse/:model" exact component={BrowseView} />
-          <Route path="/edit/:model/:id" exact component={UpsertView} />
-        </Content>
-      </AppWrapper>
-    </Router>
+    <>
+      <GlobalStyle />
+      <Router>
+          <>
+            <Route path="/" exact component={LoginView} />
+            <Route path="/dashboard" exact component={DashboardView} />
+            <Route path="/about" exact component={About} />
+            <Route path="/users" exact component={Users} />
+            <Route path="/browse/:model" exact component={BrowseView} />
+            
+            <Route path="/edit/:model/:id" exact component={UpsertView} />
+          </>
+      </Router>
+    </>
   </ThemeProvider>
 )
 

@@ -11,10 +11,6 @@ const fields = [
     type: 'email',
     required: true
   },{
-    name: 'name',
-    label: 'Full Name',
-    required: true
-  },{
     name: 'password',
     label: 'Password',
     type: 'password',
