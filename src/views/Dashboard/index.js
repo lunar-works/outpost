@@ -1,20 +1,21 @@
-import React, { Component, PureComponent } from 'react'
-import Form from '../../components/Form'
-import Field from '../../components/Form/Field'
+import React, { PureComponent } from 'react'
+
 import NavItems from '../../configs'
-
 import Nav from '../../components/Nav'
-import { NavLink } from "react-router-dom"
+import { AuthContext } from '../../components/providers/auth'
 
-const Dashboard = () => 
-  <div>
-    <h2>Dashboard</h2>
-    <Nav>
-      { NavItems.map(item => {
-        return (
-          <NavLink to={ "browse/" + item.alias}>{item.title}</NavLink>
-        )
-      } )}
-    </Nav>
-  </div>
-export default Dashboard
+class DashboardView extends PureComponent {
+  static contextType = AuthContext
+
+  
+  render() {
+    
+    return( 
+      <div>
+        <h2>Dashboard</h2>
+      </div>
+    )
+  }
+}
+
+export default DashboardView
