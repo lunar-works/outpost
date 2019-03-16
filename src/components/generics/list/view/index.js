@@ -1,39 +1,96 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 
 import Table from './table'
 import List from './list'
 
-const ListView = ({
-    headers = [],
-    data = [],
-    tables = false,
-    sortable = false,
-    sortable_columns = [],
-    filterable = false,
-    filters = [],
-    onSortComplete = () => {},
-    onFilterComplete = () => {},
-    sort = false,
-    filter = false,
-    pagination = 'none'
-}) => {
-    const props = {
-        headers: headers,
-        data: data,
-        sortable: sortable,
-        sortable_columns: sortable_columns,
-        filterable: filterable,
-        filters: filters,
-        onSortComplete: onSortComplete,
-        onFilterComplete: onFilterComplete,
-        sort: sort,
-        filter: filter,
-        pagination: pagination
+const sortByValue = (data, column, direction) => {
+    const compare = (a, b) => {
+        const a_data = a.data.filter(({label}) => label == column)
+        const b_data = b.data.filter(({label}) => label == column)
+        if(a_data.length <= 0 && b_data.length <= 0) {
+            return 0
+        } else if(a_data.length <= 0) {
+            return -1
+        } else if(b_data.length <= 0) {
+            return 1
+        }
+        return ((a_data[0].value < b_data[0].value) ? -1 : (a_data[0].value > b_data[0].value) ? 1 : 0 ) * direction
     }
-    if (tables === true) {
-        return <Table {...props} />
+    const _data = data.sort(compare)
+    return _data
+}
+
+const filter = (data, column, parameter, type) => {
+
+}
+
+/**
+ *      headers = [],
+        baseData = [],
+        tables = false,
+        sortable = false,
+        sortable_columns = [],
+        filterable = false,
+        filters = [],
+        onSortComplete = () => {},
+        onFilterComplete = () => {},
+        sortFunction = sortByValue,
+        filter = filter,
+        pagination = 'none'
+ */
+
+
+class ListView extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            data: props.baseData,
+            sort_date: new Date().getTime(),
+            sort_direction: 0,
+            sort_column: 'none'
+        }
+
+        if(props.sortFunction) {
+            this.sort = props.sortFunction.bind(this)
+        } else {
+            this.sort = this.sort.bind(this)
+        }
     }
-    return <List {...props} />
+
+    sort(column) {
+        const { data, sort_column, sort_direction } = this.state
+        const new_column = column
+        let new_direction = 1
+
+        if (column === sort_column) {
+            if (sort_direction >= 0) {
+                new_direction = -1
+            }
+        }
+        const newData = sortByValue(data, column, new_direction)
+        this.setState({
+            data: newData,
+            sort_date: new Date().getTime(),
+            sort_column: new_column,
+            sort_direction: new_direction
+        })
+    }
+
+    render() {
+        const props = this.props
+        if (props.tables === true) {
+            return <Table {...props}
+                data={ this.state.data }
+                sort={ this.sort }    
+            />
+        }
+        return <List {...props}
+            data={ this.state.data } 
+            sort={ this.sort }
+        />
+    }
 }
 
 export default ListView;

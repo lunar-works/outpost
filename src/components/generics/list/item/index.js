@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 const Wrap = styled.div`
@@ -10,19 +10,19 @@ const Field = styled.div`
     flex: 1;
 `
 
-class Item extends PureComponent  {
+class Item extends Component  {
 
-    renderField(value, key) {
+    renderField({label, value, type, editable}, key) {
         return (
-            <Field >{ value }</Field>
+            <Field>{ value }</Field>
         )
     }
 
     render() {
-        const {item} = this.props
+        const {item, id} = this.props
         return (
             <Wrap>
-                { Object.keys(item).map((key) => this.renderField(item[key], key)) }
+                { item.map((field) => this.renderField(field, id)) }
             </Wrap>
         )
     }

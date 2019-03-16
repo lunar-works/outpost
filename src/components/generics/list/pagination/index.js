@@ -7,10 +7,18 @@ const Wrap = styled.div`
 
 class Pagination extends PureComponent  {
 
-    returnPagination() {
+    renderMore() {
         return (
-            <Wrap type>
-                Pagination
+            <Wrap>
+                More...
+            </Wrap>
+        )
+    }
+
+    renderPages() {
+        return (
+            <Wrap>
+                Pages
             </Wrap>
         )
     }
@@ -20,8 +28,9 @@ class Pagination extends PureComponent  {
         switch(type) {
 
             case '':
+               return this.renderPages(type)
             case '':
-                return this.renderPagination(type)
+                return this.renderMore(type)
 
             case 'none':
             default:

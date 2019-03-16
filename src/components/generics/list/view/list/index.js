@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import Header from '../../header'
@@ -18,7 +18,7 @@ const Items = styled.div`
 
 `
 
-class ListView extends PureComponent  {
+class ListView extends Component  {
 
     renderFilter() {
         const {filterable, filters, filter} = this.props
@@ -33,16 +33,24 @@ class ListView extends PureComponent  {
     }
 
     renderHeader() {
-        const {headers, sortable, sortable_columns} = this.props
+        const {headers, sort, sortable, sortable_columns} = this.props
         return <Header
             data={headers}
+            sort={sort}
             sortable={sortable}
             sortable_columns={sortable_columns}
         />
     }
 
+    renderActions() {
+        const {actions = []} = this.props
+        if(actions.length > 0) {
+            
+        }
+    }
+
     renderItem(item) {
-        return <Item item={item} />
+        return <Item item={item.data} id={item.id} />
     }
     renderItems() {
         const {data, pagination} = this.props
@@ -50,6 +58,7 @@ class ListView extends PureComponent  {
             <ItemsWrap>
                 <Items>
                     { data.map((item) => this.renderItem(item)) }
+                    { this.renderActions() }
                 </Items>
                 <Pagination type={pagination} />
             </ItemsWrap>

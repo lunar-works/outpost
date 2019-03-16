@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import Header from '../../thead'
@@ -19,7 +19,7 @@ const Items = styled.tbody`
 
 `
 
-class TableView extends PureComponent  {
+class TableView extends Component  {
 
     renderFilter() {
         const {filterable, filters, filter} = this.props
@@ -34,16 +34,17 @@ class TableView extends PureComponent  {
     }
 
     renderHeader() {
-        const {headers, sortable, sortable_columns} = this.props
+        const {headers, sort, sortable, sortable_columns} = this.props
         return <Header
             data={headers}
+            sort={sort}
             sortable={sortable}
             sortable_columns={sortable_columns}
         />
     }
 
     renderItem(item) {
-        return <Item item={item} />
+        return <Item item={item.data} id={item.id} />
     }
     renderItems() {
         const {data} = this.props

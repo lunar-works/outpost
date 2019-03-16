@@ -11,17 +11,17 @@ const Field = styled.td`
 
 class Row extends PureComponent  {
 
-    renderField(value, key) {
+    renderField({label, value, type, editable}, key) {
         return (
-            <Field >{ value }</Field>
+            <Field>{ value }</Field>
         )
     }
 
     render() {
-        const {item} = this.props
+        const {item, id} = this.props
         return (
             <Wrap>
-                { Object.keys(item).map((key) => this.renderField(item[key], key)) }
+                { item.map((field) => this.renderField(field, id)) }
             </Wrap>
         )
     }
