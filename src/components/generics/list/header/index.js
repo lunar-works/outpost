@@ -7,11 +7,6 @@ const Wrap = styled.div`
 
 class Header extends PureComponent  {
 
-    renderFilter() {
-        return <Filters />
-    }
-
-
     render() {
         return (
             <Wrap>

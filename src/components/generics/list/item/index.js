@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
-const Wrap = styled.thead`
+const Wrap = styled.div`
 
 `
 
-class Thead extends PureComponent  {
+class Item extends PureComponent  {
 
     render() {
         return (
@@ -16,4 +16,4 @@ class Thead extends PureComponent  {
     }
 }
 
-export default Thead;
+export default Item;
