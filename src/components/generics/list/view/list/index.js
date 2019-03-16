@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Header from '../../header'
 import Item from '../../item'
 import Filters from '../../filters'
+import Pagination from '../../pagination'
 
 const Wrap = styled.div`
 
@@ -20,7 +21,15 @@ const Items = styled.div`
 class ListView extends PureComponent  {
 
     renderFilter() {
-        return <Filters />
+        const {filterable, filters, filter} = this.props
+        if (filterable === true) {      
+            return <Filters
+                filterable={filterable}
+                filters={filters}
+                filter={filter}
+            />
+        }
+        return null
     }
 
     renderHeader() {

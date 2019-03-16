@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import Header from '../../thead'
 import Item from '../../row'
 import Filters from '../../filters'
+import Pagination from '../../pagination'
+
 
 const Wrap = styled.div`
 
@@ -20,7 +22,15 @@ const Items = styled.tbody`
 class TableView extends PureComponent  {
 
     renderFilter() {
-        return <Filters />
+        const {filterable, filters, filter} = this.props
+        if (filterable === true) {      
+            return <Filters
+                filterable={filterable}
+                filters={filters}
+                filter={filter}
+            />
+        }
+        return null
     }
 
     renderHeader() {
@@ -36,7 +46,7 @@ class TableView extends PureComponent  {
         return <Item item={item} />
     }
     renderItems() {
-        const {data, pagination} = this.props
+        const {data} = this.props
         return (
             <Items>
                 { data.map((item) => this.renderItem(item)) }
@@ -45,6 +55,7 @@ class TableView extends PureComponent  {
     }
 
     render() {
+        const {pagination} = this.props
         return (
             <Wrap>
                 { this.renderFilter() }

@@ -5,12 +5,29 @@ const Wrap = styled.thead`
 
 `
 
+const Item = styled.th`
+
+`
+
 class Thead extends PureComponent  {
 
+    renderItem(item) {
+        return(
+            <Item
+                column={ item.field }
+            >
+                { item.title }
+            </Item>
+        )
+    }
+
     render() {
+        const {data} = this.props
         return (
             <Wrap>
-                Header
+                <tr>
+                    { data.map((item) => this.renderItem(item)) }
+                </tr>
             </Wrap>
         )
     }
