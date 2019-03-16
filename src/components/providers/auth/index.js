@@ -12,9 +12,9 @@ class Auth extends PureComponent {
     async componentDidMount(){
         if(this.state.auth === true) return
         try {
-            const logged = await api.get('/ping')
+            const logged = await api.get('current')
             this.setState({auth: true})
-        }catch(e){
+        } catch(e) {
             
         }        
     }
