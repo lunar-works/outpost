@@ -9,12 +9,16 @@ import Pagination from '../../pagination'
 const Wrap = styled.div`
 
 `
-
-const ItemsWrap = styled.div`
+const ItemWrap = styled.div`
 
 `
-
 const Items = styled.div`
+
+`
+const TableWrap = styled.table`
+
+`
+const TableItems = styled.tbody`
 
 `
 
@@ -42,26 +46,41 @@ class ListView extends Component  {
         />
     }
 
-    renderActions() {
-        const {actions = []} = this.props
-        if(actions.length > 0) {
-            
-        }
-    }
-
     renderItem(item) {
-        return <Item item={item.data} id={item.id} />
+        return <Item item={item.data} id={item.id} actions={this.props.actions} />
     }
     renderItems() {
-        const {data, pagination} = this.props
+        const {data, pagination, tables} = this.props
+        let ItemsWrap = ItemWrap
+        let ListItems = Items
+        if (tables === true) {
+            ItemsWrap = TableWrap
+            ListItems = TableItems
+        }
         return (
             <ItemsWrap>
-                <Items>
+                <ListItems>
                     { data.map((item) => this.renderItem(item)) }
-                    { this.renderActions() }
-                </Items>
+                </ListItems>
                 <Pagination type={pagination} />
             </ItemsWrap>
+        )
+    }
+
+    renderContents() {
+        if(!this.props.tables) {
+            return(
+                <>
+                { this.renderHeader() }
+                { this.renderItems() }
+                </>
+            )
+        }
+        return (
+            <Table>
+                { this.renderHeader() }
+                { this.renderItems() }
+            </Table>
         )
     }
 
@@ -69,8 +88,7 @@ class ListView extends Component  {
         return (
             <Wrap>
                 { this.renderFilter() }
-                { this.renderHeader() }
-                { this.renderItems()}
+                <Pagination type={pagination} />
             </Wrap>
         )
     }

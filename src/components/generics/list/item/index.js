@@ -12,6 +12,34 @@ const Field = styled.div`
 
 class Item extends Component  {
 
+
+    renderEdit() {
+        return <a>EDIT</a>
+    }
+
+    renderDelete() {
+        return <a>DELETE</a>
+    }
+
+    renderActions() {
+        const {actions = [], id} = this.props
+        console.log(actions)
+        if(actions.length > 0) {
+            return(
+                <div >
+                    { actions.map((action) => {
+
+                        if (action === 'edit') {
+                            return this.renderEdit(id)
+                        } else if (action === 'delete') {
+                            return this.renderDelete(id)
+                        }
+                    }) }
+                </div>
+            )
+        }
+    }
+
     renderField({label, value, type, editable}, key) {
         return (
             <Field>{ value }</Field>
@@ -23,6 +51,8 @@ class Item extends Component  {
         return (
             <Wrap>
                 { item.map((field) => this.renderField(field, id)) }
+                
+                { this.renderActions() }
             </Wrap>
         )
     }

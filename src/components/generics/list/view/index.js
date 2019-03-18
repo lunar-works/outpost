@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-
-import Table from './table'
 import List from './list'
 
 const sortByValue = (data, column, direction) => {
@@ -80,12 +78,6 @@ class ListView extends Component {
 
     render() {
         const props = this.props
-        if (props.tables === true) {
-            return <Table {...props}
-                data={ this.state.data }
-                sort={ this.sort }    
-            />
-        }
         return <List {...props}
             data={ this.state.data } 
             sort={ this.sort }
