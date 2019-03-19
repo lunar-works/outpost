@@ -9,9 +9,6 @@ import Pagination from '../../pagination'
 const Wrap = styled.div`
 
 `
-const ItemWrap = styled.div`
-
-`
 const Items = styled.div`
 
 `
@@ -47,23 +44,18 @@ class ListView extends Component  {
     }
 
     renderItem(item) {
-        return <Item item={item.data} id={item.id} actions={this.props.actions} />
+        return <Item item={item.data} headers={this.props.headers} id={item.id} actions={this.props.actions} />
     }
     renderItems() {
-        const {data, pagination, tables} = this.props
-        let ItemsWrap = ItemWrap
+        const {data, tables} = this.props
         let ListItems = Items
         if (tables === true) {
-            ItemsWrap = TableWrap
             ListItems = TableItems
         }
         return (
-            <ItemsWrap>
-                <ListItems>
-                    { data.map((item) => this.renderItem(item)) }
-                </ListItems>
-                <Pagination type={pagination} />
-            </ItemsWrap>
+            <ListItems>
+                { data.map((item) => this.renderItem(item)) }
+            </ListItems>
         )
     }
 
@@ -77,17 +69,19 @@ class ListView extends Component  {
             )
         }
         return (
-            <Table>
+            <TableWrap>
                 { this.renderHeader() }
                 { this.renderItems() }
-            </Table>
+            </TableWrap>
         )
     }
 
     render() {
+        const {pagination} = this.props
         return (
             <Wrap>
                 { this.renderFilter() }
+                { this.renderContents() }
                 <Pagination type={pagination} />
             </Wrap>
         )

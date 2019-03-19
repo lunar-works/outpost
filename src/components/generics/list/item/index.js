@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
+import Form from './form'
+
 const ListWrap = styled.div`
     display: flex;
     position: relative;
 `
 const ListField = styled.div`
     flex: 1;
+`
+const FormWrap = styled.div`
+    display: flex;
+    width: 100%;
 `
 const TableWrap = styled.tr`
 
@@ -17,13 +23,36 @@ const TableField = styled.td`
 
 class Item extends Component  {
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            isEditing: false
+        }
+
+        this.handleEditSelect = this.handleEditSelect.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
+    } 
+
+    handleEditSelect() {
+        const editing = this.state.isEditing
+        this.setState({
+            isEditing: !editing
+        })
+        console.log(this.state.isEditing)
+    }
+
+    handleDelete() {
+        console.log('Delete')
+    }
+
 
     renderEdit() {
-        return <a>EDIT</a>
+        return <a onClick={this.handleEditSelect}>EDIT</a>
     }
 
     renderDelete() {
-        return <a>DELETE</a>
+        return <a onClick={this.handleDelete}>DELETE</a>
     }
 
     renderActions() {
@@ -32,7 +61,6 @@ class Item extends Component  {
             return(
                 <div>
                     { actions.map((action) => {
-
                         if (action === 'edit') {
                             return this.renderEdit(id)
                         } else if (action === 'delete') {
@@ -44,7 +72,7 @@ class Item extends Component  {
         }
     }
 
-    renderField({label, value, type, editable}, key) {
+    renderField({value}, key) {
         const {tables} = this.props
         let Field = ListField
         if (tables === true) {
@@ -55,18 +83,35 @@ class Item extends Component  {
         )
     }
 
+    renderEditForm() {
+        const {item, tables, headers} = this.props
+        if (this.state.isEditing) {            
+            let Wrap = FormWrap
+            if (tables === true) {
+                Wrap = TableWrap
+            }
+            return (
+                <Wrap>
+                    <Form data={item} headers={headers} />
+                </Wrap>
+            )
+        }
+    }
+
     render() {
-        const {item, id, tables} = this.props
+        const {item, id, tables, headers} = this.props
         let Wrap = ListWrap
         if (tables === true) {
             Wrap = TableWrap
         }
         return (
-            <Wrap>
-                { item.map((field) => this.renderField(field, id)) }
-                
-                { this.renderActions() }
-            </Wrap>
+            <>
+                <Wrap>
+                    { item.filter((field, key) => headers[key].display).map((field) => this.renderField(field, id)) }
+                    { this.renderActions() }
+                </Wrap>
+                { this.renderEditForm() }
+            </>
         )
     }
 }

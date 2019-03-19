@@ -48,7 +48,7 @@ class Header extends Component  {
 
     render() {
         const {data, tables} = this.props
-        const children = data.map((item) => this.renderItem(item))
+        const children = data.filter(({display}) => display).map((item) => this.renderItem(item))
         
         if (tables) {
             return (
