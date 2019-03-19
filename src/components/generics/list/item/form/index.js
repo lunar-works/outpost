@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
+import FormModule from '../../../form'
+import {Select, CheckBox, Radio, Field} from '../../../form/fields'
+
 const Wrap = styled.form`
 
 `
@@ -30,18 +33,33 @@ class Form extends Component  {
         )
     }
 
+    renderFields() {
+        const {data, headers} = this.props
+
+        return data.map((item,key) => {
+            const {editable, title, type, options=[]} = headers[key]
+            
+            switch(type) {
+                case 'select':
+                    return <Select label={title} disabled={!editable} options={options} />
+                
+                case 'checkbox':
+                    return <CheckBox label={title} disabled={!editable}  />
+
+                case 'radio':
+                    return <Radio label={title} disabled={!editable} />
+
+                default:
+                    return <Field label={title} disabled={!editable} />
+            }
+        })
+    }
 
     render() {
-        const {data, headers} = this.props
         return (
-            <Wrap onSubmit={this.submit}>
-                <Fields>
-                    { data.map((item) => this.renderField(item, headers)) }
-                </Fields>
-                <Submit>
-
-                </Submit>
-            </Wrap>
+            <FormModule>
+                { this.renderFields() }
+            </FormModule>
         )
     }
 }
