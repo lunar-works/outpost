@@ -9,6 +9,13 @@ const Wrap = styled.div`
 const Item = styled.div`
     flex: 1;
 `
+const TableWrap = styled.thead`
+
+`
+
+const TableItem = styled.th`
+
+`
 
 class Header extends Component  {
 
@@ -25,22 +32,35 @@ class Header extends Component  {
     }
 
     renderItem(item) {
+        let ItemItem = Item
+        if (this.props.tables) {
+            ItemItem = TableItem
+        }
         return(
-            <Item
+            <ItemItem
                 column={ item.field }
                 onClick={ () => this.sort(item) }
             >
                 { item.title }
-            </Item>
+            </ItemItem>
         )
     }
 
     render() {
-        const {data} = this.props
+        const {data, tables} = this.props
+        const children = data.filter(({display}) => display).map((item) => this.renderItem(item))
+        
+        if (tables) {
+            return (
+                <TableWrap>
+                    <tr>
+                        { children }
+                    </tr>
+                </TableWrap>
+            )
+        }
         return (
-            <Wrap>
-                { data.map((item) => this.renderItem(item)) }
-            </Wrap>
+            <Wrap>{ children }</Wrap>
         )
     }
 }

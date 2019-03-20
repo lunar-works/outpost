@@ -9,12 +9,13 @@ import Pagination from '../../pagination'
 const Wrap = styled.div`
 
 `
-
-const ItemsWrap = styled.div`
+const Items = styled.div`
 
 `
+const TableWrap = styled.table`
 
-const Items = styled.div`
+`
+const TableItems = styled.tbody`
 
 `
 
@@ -42,35 +43,46 @@ class ListView extends Component  {
         />
     }
 
-    renderActions() {
-        const {actions = []} = this.props
-        if(actions.length > 0) {
-            
-        }
-    }
-
     renderItem(item) {
-        return <Item item={item.data} id={item.id} />
+        return <Item item={item.data} headers={this.props.headers} id={item.id} actions={this.props.actions} />
     }
     renderItems() {
-        const {data, pagination} = this.props
+        const {data, tables} = this.props
+        let ListItems = Items
+        if (tables === true) {
+            ListItems = TableItems
+        }
         return (
-            <ItemsWrap>
-                <Items>
-                    { data.map((item) => this.renderItem(item)) }
-                    { this.renderActions() }
-                </Items>
-                <Pagination type={pagination} />
-            </ItemsWrap>
+            <ListItems>
+                { data.map((item) => this.renderItem(item)) }
+            </ListItems>
+        )
+    }
+
+    renderContents() {
+        if(!this.props.tables) {
+            return(
+                <>
+                { this.renderHeader() }
+                { this.renderItems() }
+                </>
+            )
+        }
+        return (
+            <TableWrap>
+                { this.renderHeader() }
+                { this.renderItems() }
+            </TableWrap>
         )
     }
 
     render() {
+        const {pagination} = this.props
         return (
             <Wrap>
                 { this.renderFilter() }
-                { this.renderHeader() }
-                { this.renderItems()}
+                { this.renderContents() }
+                <Pagination type={pagination} />
             </Wrap>
         )
     }
